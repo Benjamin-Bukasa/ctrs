@@ -6,7 +6,18 @@
   @apply px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600;
 }
 
+.btnNav{
+  @apply px-8 py-4 rounded-full font-semibold bg-blue-500 text-white hover:bg-blue-600 hover:scale-105 ease-in-out duration-300;
+}
 
 .card {
   @apply p-4 rounded-xl shadow-md bg-white;
+}
+
+.displayFlex {
+  @apply flex justify-center items-center gap-5;
+}
+
+.navbar{
+  @apply flex justify-center items-center gap-20
 }
