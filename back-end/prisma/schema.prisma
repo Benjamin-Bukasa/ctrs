@@ -1,0 +1,225 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+///////////////////////
+// USERS & ROLES
+///////////////////////
+
+model User {
+  id          Int        @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  email       String     @unique
+  password    String
+  role        Role       @default(USER)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  // Relations
+  candidate   Candidate?
+  company     Company?
+  posts       Post[]
+  comments    Comment[]
+  favorites   Favorite[]
+  likes       Like[]
+}
+
+enum Role {
+  USER
+  CANDIDATE
+  ADMIN
+  COMPANY
+}
+
+///////////////////////
+// CANDIDATE PROFILE
+///////////////////////
+
+model Candidate {
+  id                        Int                      @id @default(autoincrement())
+  userId                    Int                      @unique
+  bio                       String?
+  cvUrl                     String?
+  idCardUrl                 String?
+  createdAt                 DateTime                 @default(now())
+  updatedAt                 DateTime                 @updatedAt
+
+  // Relations
+  user                      User                     @relation(fields: [userId], references: [id])
+  applications              JobApplication[]
+  spontaneousApplications   SpontaneousApplication[]
+  cvs                       CV[]
+}
+
+///////////////////////
+// COMPANY
+///////////////////////
+
+model Company {
+  id        Int        @id @default(autoincrement())
+  userId    Int        @unique
+  name      String
+  address   String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  // Relations
+  user      User       @relation(fields: [userId], references: [id])
+  jobOffers JobOffer[]
+  serviceRequests ServiceRequest[]
+}
+
+///////////////////////
+// JOB OFFERS & APPLICATIONS
+///////////////////////
+
+model JobOffer {
+  id           Int        @id @default(autoincrement())
+  companyId    Int
+  title        String
+  description  String
+  location     String
+  category     String
+  experienceMin Int
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  // Relations
+  company      Company    @relation(fields: [companyId], references: [id])
+  applications JobApplication[]
+}
+
+model JobApplication {
+  id           Int        @id @default(autoincrement())
+  candidateId  Int
+  jobOfferId   Int
+  coverLetter  String?
+  createdAt    DateTime   @default(now())
+
+  // Relations
+  candidate    Candidate  @relation(fields: [candidateId], references: [id])
+  jobOffer     JobOffer   @relation(fields: [jobOfferId], references: [id])
+}
+
+///////////////////////
+// SPONTANEOUS APPLICATIONS
+///////////////////////
+
+model SpontaneousApplication {
+  id           Int        @id @default(autoincrement())
+  candidateId  Int
+  coverLetter  String?
+  createdAt    DateTime   @default(now())
+
+  // Relations
+  candidate    Candidate  @relation(fields: [candidateId], references: [id])
+}
+
+///////////////////////
+// BLOG / POSTS
+///////////////////////
+
+model Post {
+  id          Int        @id @default(autoincrement())
+  authorId    Int
+  title       String
+  content     String
+  published   Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  // Relations
+  author      User       @relation(fields: [authorId], references: [id])
+  comments    Comment[]
+  likes       Like[]
+  favorites   Favorite[]
+}
+
+model Comment {
+  id        Int        @id @default(autoincrement())
+  postId    Int
+  authorId  Int
+  content   String
+  createdAt DateTime   @default(now())
+
+  // Relations
+  post      Post       @relation(fields: [postId], references: [id])
+  author    User       @relation(fields: [authorId], references: [id])
+}
+
+model Like {
+  id        Int        @id @default(autoincrement())
+  userId    Int
+  postId    Int
+  createdAt DateTime   @default(now())
+
+  // Relations
+  user      User       @relation(fields: [userId], references: [id])
+  post      Post       @relation(fields: [postId], references: [id])
+
+  @@unique([userId, postId])
+}
+
+model Favorite {
+  id        Int        @id @default(autoincrement())
+  userId    Int
+  postId    Int
+  createdAt DateTime   @default(now())
+
+  // Relations
+  user      User       @relation(fields: [userId], references: [id])
+  post      Post       @relation(fields: [postId], references: [id])
+
+  @@unique([userId, postId])
+}
+
+///////////////////////
+// SERVICE REQUESTS
+///////////////////////
+
+model ServiceRequest {
+  id        Int        @id @default(autoincrement())
+  companyId Int
+  title     String
+  description String
+  status    ServiceStatus @default(PENDING)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  // Relations
+  company   Company    @relation(fields: [companyId], references: [id])
+}
+
+enum ServiceStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+///////////////////////
+// CVthèque (pour recherche)
+///////////////////////
+
+model CV {
+  id          Int       @id @default(autoincrement())
+  candidateId Int
+  category    String
+  profession  String
+  experience  Int
+  location    String
+  cvUrl       String?
+  createdAt   DateTime  @default(now())
+
+  // Relations
+  candidate   Candidate @relation(fields: [candidateId], references: [id])
+
+  @@unique([candidateId, category, profession]) // optionnel: éviter doublons exacts
+}
