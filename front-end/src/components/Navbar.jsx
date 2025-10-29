@@ -1,13 +1,19 @@
 import { Search } from 'lucide-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+
 
 import { useAuthStore } from './../stores/auth.store';
 
 
 function Navbar() {
-
     const { isAuthenticated, user, logout } = useAuthStore();
+    const navigate = useNavigate();
+    const handleLogin = async () => {
+
+    navigate("/login");
+  };
 
   return (
     <nav className='navbar'>
@@ -29,7 +35,7 @@ function Navbar() {
               Déconnexion
             </button>
           ) : (
-            <button onClick={logout} className="btnNav">
+            <button onClick={handleLogin} className="btnNav">
               Connexion
             </button>
           )}
