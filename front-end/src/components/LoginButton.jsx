@@ -14,11 +14,11 @@ const LoginButton = () => {
   return (
      <div>
               {isAuthenticated ? (
-                <button onClick={logout} className="btnNav">
+                <button onClick={logout} className="btn">
                   Déconnexion
                 </button>
               ) : (
-                <button onClick={handleLogin} className="btnNav">
+                <button onClick={handleLogin} className="btn">
                   Connexion
                 </button>
               )}

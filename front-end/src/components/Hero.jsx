@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const Hero = () => {
   return (
@@ -8,9 +9,16 @@ const Hero = () => {
         <p className='w-[90%] m-auto md:w-full text-center md:text-start md:text-[16px] mb-6'>CTRS Sarlu accompagne les entreprises en RDC et à l’international dans l’optimisation de leurs opérations et la gestion des ressources humaines. </p>
         <button className='btnNav'>Nous contacter</button>
       </div>
-      <div className="w-full h-full flex flex-col justify-center md:w-[720px] md:h-full md:flex md:flex-row md:justify-center md:items-center">
+      <motion.div
+                animate={{ x: [0, 50, 0] }}
+                transition={{
+                            repeat: Infinity,
+                            duration: 4,
+                            ease: "easeInOut"
+                        }} 
+                        className="w-full h-full flex flex-col justify-center md:w-[720px] md:h-full md:flex md:flex-row md:justify-center md:items-center">
         <img src="images/landingImage.png" alt="" className='w-full h-full md:w-[640px] md:h-[720px]'/>
-      </div>
+      </motion.div>
     </section>
   );
 }
