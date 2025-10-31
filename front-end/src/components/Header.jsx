@@ -1,12 +1,21 @@
 import React from 'react';
 import Navbar from './Navbar';
 import Logo from './Logo';
+import MenuButton from './MenuButton';
+import LoginButton from './LoginButton';
+
+
 
 const Header = () => {
+
+  
+
   return (
-    <header className='md:w-full z-10 md:flex md:justify-between md:items-center md:mt-4 md:px-4 md:py-2 md:shadow-sm md:rounded-full md:bg-white md:border md:border-gray-200'>
+    <header className='w-full py-4 px-1 fixed top-0 left-0 shadow-md z-50 flex flex-row justify-between items-center gap-4 2xs:max-xs:justify-around sm:w-full lg:w-full sm:flex-row sm:justify-between sm:items-center md:px-10 lg:px-20 lg:flex-row lg:justify-between lg:items-center sm:max-[979px]:justify-between sm:max-[979px]:px-10 bg-[#1B1C4A] text-white md:m-auto'>
         <Logo/>
         <Navbar/>
+        <LoginButton/>
+        <MenuButton/>
     </header>
   );
 }

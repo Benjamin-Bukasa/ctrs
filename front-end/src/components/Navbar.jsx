@@ -1,47 +1,35 @@
-import { Search } from 'lucide-react'
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { NavLinks } from '../services/NavLinks';
+import { useToggleNav } from "../stores/store";
 
+import Logo from './Logo';
 
-import { useAuthStore } from './../stores/auth.store';
+const Navbar = () => {
+  const { open, setOpen } = useToggleNav();
+  const handleOpen = () => setOpen(!open);
 
-
-function Navbar() {
-    const { isAuthenticated, user, logout } = useAuthStore();
-    const navigate = useNavigate();
-    const handleLogin = async () => {
-
-    navigate("/login");
-  };
 
   return (
-    <nav className='navbar'>
-        <ul className='md:flex md:gap-4 md:items-center'>
-            <li className='text-[18px] font-semibold text-gray-800 px-3 py-2 md:hover:bg-gray-100 md:hover:rounded-full md:hover:px-3 md:hover:py-2 md:ease-in-out md:duration-300'><Link to="/">Accueil</Link></li>
-            <li className='text-[18px] font-semibold text-gray-800 px-3 py-2 md:hover:bg-gray-100 md:hover:rounded-full md:hover:px-3 md:hover:py-2 md:ease-in-out md:duration-300'><Link to="/about">A propos</Link></li>
-            <li className='text-[18px] font-semibold text-gray-800 px-3 py-2 md:hover:bg-gray-100 md:hover:rounded-full md:hover:px-3 md:hover:py-2 md:ease-in-out md:duration-300'><Link to="/services">Services</Link></li>
-            <li className='text-[18px] font-semibold text-gray-800 px-3 py-2 md:hover:bg-gray-100 md:hover:rounded-full md:hover:px-3 md:hover:py-2 md:ease-in-out md:duration-300'><Link to="/news">Actualités</Link></li>
-            <li className='text-[18px] font-semibold text-gray-800 px-3 py-2 md:hover:bg-gray-100 md:hover:rounded-full md:hover:px-3 md:hover:py-2 md:ease-in-out md:duration-300'><Link to="/job">Emploi</Link></li>
-            <li className='text-[18px] font-semibold text-gray-800 px-3 py-2 md:hover:bg-gray-100 md:hover:rounded-full md:hover:px-3 md:hover:py-2 md:ease-in-out md:duration-300'><Link to="/contact">Contacts</Link></li>
-        </ul>
-        <form className="displayFlex border rounded-lg px-2 py-1">
-            <input type="text" name="search" placeholder="Recherche" className="outline-none rounded-lg px-4 py-2"/>
-            <button><Search/></button>
-        </form>
-        <div>
-          {isAuthenticated ? (
-            <button onClick={logout} className="btnNav">
-              Déconnexion
-            </button>
-          ) : (
-            <button onClick={handleLogin} className="btnNav">
-              Connexion
-            </button>
-          )}
-        </div>
+    <nav
+      className={`fixed top-0 left-0 z-50 w-2/3 h-full py-3 text-white md:text-[#fff] bg-[#1B1C4A] md:bg-[#1B1C4A] dark:bg-[#1B1C4A] dark:text-white transition-all duration-300
+        ${open ? 'translate-x-0' : '-translate-x-full'} 
+        md:static md:translate-x-0 md:w-auto md:h-auto md:dark:bg-transparent`}
+    >
+      <div className="md:hidden">
+        <Logo />
+      </div>
+ 
+      <ul className="flex flex-col gap-8 p-4 md:flex-row md:gap-4 md:items-center md:p-0">
+        {NavLinks.map((item) => (
+          <li className="px-4" key={item.id}>
+            <Link to={item.link} onClick={handleOpen}>
+              {item.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
