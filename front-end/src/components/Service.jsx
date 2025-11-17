@@ -6,11 +6,11 @@ const Service = () => {
     <div className='md:flex md:flex-row md:justify-center md:h-[540px] md:gap-8 px-48 py-4'>
       {
         ourServices.slice(2,5).map((item)=>(
-            <div className="md:w-1/3 border shadow-sm rounded-md overflow-hidden bg-white shadow-blue-300" key={item.id}>
+            <div key={item.id} className="md:w-[460px] border shadow-sm rounded-md overflow-hidden bg-white shadow-blue-300" >
                 <div className="w-full h-[300px] overflow-hidden">
                     <img src={item.image} alt="" className='w-full h-full hover:scale-105 duration-200'/>
                 </div>
-                <div className="w-full flex flex-col gap-4 justify-start items-start p-2">
+                <div className="w-full flex flex-col gap-4 justify-start items-start p-4">
                     <h3 className="font-semibold text-[18px]">{item.title}</h3>
                     <p className="">{item.description}</p>
                     <button className='btnNav'>Commander</button>
