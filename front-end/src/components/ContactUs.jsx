@@ -2,9 +2,9 @@ import React from 'react';
 
 const ContactUs = () => {
   return (
-    <section className='px-4 py-4 md:flex md:flex-flow md:px-40 md:py-20'>
+    <section className='w-full flex flex-col px-4 py-4 md:flex md:flex-flow md:px-40 md:py-20'>
       <div className="w-full flex bg-blue-600 text-white pl-40  rounded-3xl overflow-hidden">
-            <div className="md:w-1/2 md:flex md:flex-col md:justify-center gap-2 py-16">
+            <div className="w-full md:w-1/2 md:flex md:flex-col md:justify-center gap-2 py-16">
                 <h6 className='text-[14px]'>Votre croissant, notre mission</h6>
                 <h3 className='text-[44px] font-semibold leading-[44px]'>Votre partenaire idéal pour <span className='text-[#e9b817]'>la croissance</span> de votre entreprise</h3>
                 <div className="flex justify-start items-center gap-8">
@@ -20,9 +20,7 @@ const ContactUs = () => {
                     </div>
                 </div>
             </div>
-            <div className="md:w-1/2 bg-cover bg-center bg-[url('images/contact.jpeg')]">
-                
-            </div>
+            <div className="md:w-1/2 bg-cover bg-center bg-[url('images/contact.jpeg')]"></div>
       </div>
     </section>
   );

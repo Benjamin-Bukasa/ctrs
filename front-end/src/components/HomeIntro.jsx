@@ -5,7 +5,7 @@ const HomeIntro = () => {
   return (
     <section className='px-8 py-10 flex flex-col md:px-48 md:pt-32 md:pb-8 md:flex md:flex-row md:justify-center md:gap-16'>
         <motion.div
-                animate={{ x: [0, 50, 0] }}
+                animate={{ x: [0, 15, 0] }}
                 transition={{
                             repeat: Infinity,
                             duration: 4,

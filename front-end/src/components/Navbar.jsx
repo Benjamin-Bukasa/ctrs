@@ -11,7 +11,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 z-50 w-2/3 h-full py-3 text-white md:text-[#fff] bg-[#6264ec] md:bg-[#6264ec] dark:bg-[#6264ec] dark:text-white transition-all duration-300
+      className={`fixed top-0 left-0 z-50 w-2/3 h-full py-3 text-white md:text-[#6264ec] bg-[#6264ec] md:bg-[#6264ec] dark:bg-[#6264ec] transition-all duration-300 font-
         ${open ? 'translate-x-0' : '-translate-x-full'} 
         md:static md:translate-x-0 md:w-auto md:h-auto md:dark:bg-transparent`}
     >
@@ -19,7 +19,7 @@ const Navbar = () => {
         <Logo />
       </div>
  
-      <ul className="flex flex-col gap-8 p-4 md:flex-row md:gap-4 md:items-center md:p-0">
+      <ul className="flex flex-col gap-8 p-4 md:flex-row md:gap-4 md:items-center md:p-0 font-semibold">
         {NavLinks.map((item) => (
           <li className="px-4" key={item.id}>
             <Link to={item.link} onClick={handleOpen}>

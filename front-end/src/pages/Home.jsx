@@ -7,6 +7,7 @@ import ContactUs from '../components/ContactUs'
 import TrustUs from '../components/TrustUs'
 import Ads from '../components/Ads'
 
+
 function Home() {
   return (
     <>

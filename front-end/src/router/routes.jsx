@@ -40,6 +40,10 @@ const router = createBrowserRouter([
         element:<Contact/>
       },
       {
+        path:"formation",
+        element:<Contact/>
+      },
+      {
         path: "profile",
         element: (
           <ProtectedRoute>

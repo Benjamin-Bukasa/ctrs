@@ -3,7 +3,7 @@ import { trustUsItems } from '../services/trustUsItems';
 
 function CompanyTrust() {
   return (
-    <div className='md:flex flex-wrap md:justify-center md:gap-4 gap-6'>
+    <div className='grid grid-cols-2 gap-4 md:flex flex-wrap md:justify-center md:gap-4'>
         {
             trustUsItems.map((item)=>(
                 <div key={item.id} className='md:w-[10%] bg-gray-100 rounded-lg overflow-hidden'>
